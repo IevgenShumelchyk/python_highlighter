@@ -14,8 +14,9 @@ class HighlightTest(unittest.TestCase):
     def setUp(self):
         """This method is called each time the test routine run"""
         self.app = create_app().test_client()
-        # TODO: add the missing test data in this routine
-        self.highlighted_text = b'Sample <mark>text</mark> to be highlighted'
+        self.highlight_text = b'Python'
+        self.text_data = b'Sample Python application'
+        self.highlighted_text = b'Sample <mark>Python</mark> application'
 
     def tearDown(self):
         """This method is called after the test routine is finished
@@ -24,6 +25,6 @@ class HighlightTest(unittest.TestCase):
 
     def test_markup_text(self):
         """Test markup process"""
-        response = self.app.post('/', data={'search': self.search_text,
-                                            'text': self.text})
+        response = self.app.post('/', data={'search': self.highlight_text,
+                                            'text': self.text_data})
         self.assertIn(self.highlighted_text, response.data)
